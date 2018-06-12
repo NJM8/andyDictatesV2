@@ -1,23 +1,88 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <!-- <vue-speech /> -->
+    <vue-speech @onTranscriptionEnd="onEnd" class="invisible"/>
+    <h1 class="title">Andy Dictates V2</h1>
+    <div class="words" contenteditable>
+      <text-display
+        class="wordOutput"
+        v-for="(sentence, index) in recordedWords"
+        :key="index"
+        :sentence="sentence"
+        :index="index"
+        v-on:join="join">{{ sentence }}</text-display>
+    </div>
   </div>
 </template>
 
 <script>
+import TextDisplay from './components/TextDisplay'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    TextDisplay
+  },
+  data () {
+    return {
+      recordedWords: []
+    }
+  },
+  methods: {
+    onEnd ({ lastSentence, transcription }) {
+      console.log(lastSentence)
+      this.recordedWords.push(lastSentence)
+    },
+    join (index) {
+      console.log(index)
+    }
+  }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html {
+  font-size: 10px;
+}
+
+body {
+  background:#ffc600;
+  font-family: 'helvetica neue';
+  font-weight: 200;
+  font-size: 20px;
+}
+.words {
+  max-width:500px;
+  margin:50px auto;
+  background:white;
+  border-radius:5px;
+  box-shadow:10px 10px 0 rgba(0,0,0,0.1);
+  padding:1rem 2rem 1rem 5rem;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, #fff)) 0 4px;
+  background-size: 100% 3rem;
+  position: relative;
+  line-height:3rem;
+}
+.wordOutput {
+  margin: 0 0 3rem;
+}
+.words:before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  top: 0;
+  left: 30px;
+  bottom: 0;
+  border: 1px solid;
+  border-color: transparent #efe4e4;
+}
+.invisible {
+  display: none;
+}
+.title {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-size: 3rem;
+  font-style: italic;
+  margin: 10px 0px 20px 0px;
 }
 </style>
