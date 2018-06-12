@@ -34,7 +34,13 @@ export default {
       this.recordedWords.push(lastSentence)
     },
     join (index) {
-      console.log(index)
+      for (let i = 0; i < this.recordedWords.length; i++) {
+        if ((i + 1) === index) {
+          this.recordedWords[i] = `${this.recordedWords[i]} ${this.recordedWords[i + 1]}`
+          this.recordedWords.splice(index, 1)
+          return
+        }
+      }
     }
   }
 }

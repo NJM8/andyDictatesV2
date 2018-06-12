@@ -1,7 +1,7 @@
 <template>
   <div>
     <span contenteditable="">{{ sentence }}</span>
-    <button @click="$emit('join', index)">Join above</button>
+    <button v-if="index !== 0" @click="$emit('join', index)">Join above</button>
     <button
       v-clipboard:copy="sentence"
       v-clipboard:success="handleCopySuccess"
