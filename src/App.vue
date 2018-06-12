@@ -3,7 +3,7 @@
     <!-- <vue-speech /> -->
     <vue-speech @onTranscriptionEnd="onEnd" class="invisible"/>
     <h1 class="title">Andy Dictates V2</h1>
-    <div class="words" contenteditable>
+    <div class="words">
       <text-display
         class="wordOutput"
         v-for="(sentence, index) in recordedWords"

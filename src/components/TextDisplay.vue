@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ sentence }}
+    <span contenteditable="">{{ sentence }}</span>
     <button @click="$emit('join', index)">Join above</button>
     <button
       v-clipboard:copy="sentence"
