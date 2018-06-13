@@ -1,8 +1,13 @@
 <template>
   <div id="app">
     <!-- <vue-speech /> -->
-    <vue-speech @onTranscriptionEnd="onEnd" class="invisible"/>
+    <vue-speech v-if="recording" @onTranscriptionEnd="onEnd" class="invisible"/>
     <h1 class="title">Andy Dictates V2</h1>
+    <br>
+    <button @click="recording = true">Start recording</button>
+    <button @click="recording = false">Stop recording</button>
+    <h3 v-if="recording">You are recording</h3>
+    <h3 v-else>You are not recording</h3>
     <div class="words">
       <text-display
         class="wordOutput"
@@ -26,11 +31,13 @@ export default {
   },
   data () {
     return {
-      recordedWords: ['hello', 'hi']
+      recordedWords: ['hello', 'hi'],
+      recording: false
     }
   },
   methods: {
     onEnd ({ lastSentence, transcription }) {
+      console.log(lastSentence)
       this.recordedWords.push(lastSentence)
     },
     join (index) {
