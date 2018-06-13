@@ -8,22 +8,18 @@
       @onTranscriptionEnd="onEnd"/>
     <h1 class="title">Andy Dictates V2</h1>
     <br>
-    <button @click="recording = true">Start recording</button>
-    <button @click="recording = false">Stop recording</button>
-    <h3 v-if="recording">You are recording</h3>
-    <h3 v-else>You are not recording</h3>
+    <on-off-switch v-model="recording"/>
     <form
-      class="form-group-inline col-6 offset-3"
+      class="form-group-inline col-6 offset-3 mt-3"
       @submit.prevent="addKeyword(newKeyword)">
-      <label
-        class="text-center"
-        for="splitWords">Enter a keyword you would like to separate the input on:</label>
-      <div class="input-group">
+      <h5
+        class="text-center">Enter a keyword you would like to separate the input on:</h5>
+      <div class="input-group shadow">
         <input
           v-model="newKeyword"
           type="text"
-          class="form-control">
-        <div class="input-group-append">
+          class="form-control shadow">
+        <div class="input-group-append shadow">
           <button
             type="submit"
             class="btn btn-primary ml-auto">Submit</button>
@@ -32,19 +28,19 @@
     </form>
     <div
       v-if="keywords.length > 0"
-      class="col-4 offset-4 mt-2">
-      <p class="text-center">Your Keywords:</p>
+      class="col-4 offset-4 mt-3">
+      <h5 class="text-center">Your Keywords:</h5>
       <div
         v-for="(keyword, index) in keywords"
         :key="index"
         class="input-group m-2">
         <input
           v-model="keywords[index]"
-          class="form-control"
+          class="form-control shadow"
           value="keyword">
-        <div class="input-group-append">
+        <div class="input-group-append shadow">
           <button
-            class="btn btn-warning"
+            class="btn btn-warning shadow"
             @click="removeKeyword(index)">Remove</button>
         </div>
       </div>
@@ -64,11 +60,13 @@
 
 <script>
 import TextDisplay from './components/TextDisplay'
+import OnOffSwitch from './components/OnOffSwitch'
 
 export default {
   name: 'App',
   components: {
-    TextDisplay
+    TextDisplay,
+    OnOffSwitch
   },
   data () {
     return {
@@ -158,5 +156,8 @@ body {
   font-size: 4rem;
   font-style: italic;
   margin: 10px 0px 20px 0px;
+}
+.shadow {
+  box-shadow:10px 10px 0 rgba(0,0,0,0.1);
 }
 </style>
