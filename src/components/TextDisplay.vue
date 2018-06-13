@@ -1,13 +1,18 @@
 <template>
   <div class="d-flex">
-    <span contenteditable="" @input="$emit('sentence-change', index, $event.target.textContent)">{{ sentence }}</span>
+    <span
+      contenteditable=""
+      @input="$emit('sentence-change', index, $event.target.textContent)">{{ sentence }}</span>
     <div class="ml-auto">
-      <button class="btn btn-sm btn-info" v-if="index !== 0" @click="$emit('join', index)">Join above</button>
       <button
-        class="btn btn-sm btn-primary"
+        v-if="index !== 0"
+        class="btn btn-sm btn-info"
+        @click="$emit('join', index)">Join above</button>
+      <button
         v-clipboard:copy="sentence"
         v-clipboard:success="handleCopySuccess"
-        v-clipboard:error="handleCopyFailure">
+        v-clipboard:error="handleCopyFailure"
+        class="btn btn-sm btn-primary">
         Copy
       </button>
     </div>

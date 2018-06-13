@@ -1,39 +1,63 @@
 <template>
-  <div id="app" class="container">
-    <vue-speech v-if="recording" @onTranscriptionEnd="onEnd" class="invisible"/>
+  <div
+    id="app"
+    class="container">
+    <vue-speech
+      v-if="recording"
+      class="invisible"
+      @onTranscriptionEnd="onEnd"/>
     <h1 class="title">Andy Dictates V2</h1>
     <br>
     <button @click="recording = true">Start recording</button>
     <button @click="recording = false">Stop recording</button>
     <h3 v-if="recording">You are recording</h3>
     <h3 v-else>You are not recording</h3>
-    <form @submit.prevent="addKeyword(newKeyword)" class="form-group-inline col-6 offset-3">
-      <label for="splitWords">Enter a keyword you would like to separate the input on:</label>
+    <form
+      class="form-group-inline col-6 offset-3"
+      @submit.prevent="addKeyword(newKeyword)">
+      <label
+        class="text-center"
+        for="splitWords">Enter a keyword you would like to separate the input on:</label>
       <div class="input-group">
-        <input type="text" v-model="newKeyword" class="form-control">
+        <input
+          v-model="newKeyword"
+          type="text"
+          class="form-control">
         <div class="input-group-append">
-          <button type="submit" class="btn btn-primary ml-auto">Submit</button>
+          <button
+            type="submit"
+            class="btn btn-primary ml-auto">Submit</button>
         </div>
       </div>
     </form>
-    <div class="col-4 offset-4 mt-2" v-if="keywords.length > 0">
+    <div
+      v-if="keywords.length > 0"
+      class="col-4 offset-4 mt-2">
       <p class="text-center">Your Keywords:</p>
-        <div v-for="(keyword, index) in keywords" :key="index" class="input-group m-2">
-          <input class="form-control" value="keyword" v-model="keywords[index]">
-          <div class="input-group-append">
-            <button class="btn btn-warning" @click="removeKeyword(index)">Remove</button>
-          </div>
+      <div
+        v-for="(keyword, index) in keywords"
+        :key="index"
+        class="input-group m-2">
+        <input
+          v-model="keywords[index]"
+          class="form-control"
+          value="keyword">
+        <div class="input-group-append">
+          <button
+            class="btn btn-warning"
+            @click="removeKeyword(index)">Remove</button>
         </div>
+      </div>
     </div>
     <div class="words">
       <text-display
-        class="wordOutput"
         v-for="(sentence, index) in recordedWords"
         :key="index"
         :sentence="sentence"
         :index="index"
-        v-on:join="join"
-        v-on:sentence-change="updateSentence"></text-display>
+        class="wordOutput"
+        @join="join"
+        @sentence-change="updateSentence"/>
     </div>
   </div>
 </template>
