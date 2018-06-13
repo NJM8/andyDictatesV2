@@ -10,7 +10,8 @@
         :key="index"
         :sentence="sentence"
         :index="index"
-        v-on:join="join">{{ sentence }}</text-display>
+        v-on:join="join"
+        v-on:sentence-change="updateSentence"></text-display>
     </div>
   </div>
 </template>
@@ -25,12 +26,11 @@ export default {
   },
   data () {
     return {
-      recordedWords: []
+      recordedWords: ['hello', 'hi']
     }
   },
   methods: {
     onEnd ({ lastSentence, transcription }) {
-      console.log(lastSentence)
       this.recordedWords.push(lastSentence)
     },
     join (index) {
@@ -41,6 +41,9 @@ export default {
           return
         }
       }
+    },
+    updateSentence (index, newSentence) {
+      this.recordedWords[index] = newSentence
     }
   }
 }

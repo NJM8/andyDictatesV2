@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span contenteditable="">{{ sentence }}</span>
+    <span contenteditable="" @input="$emit('sentence-change', index, $event.target.textContent)">{{ sentence }}</span>
     <button v-if="index !== 0" @click="$emit('join', index)">Join above</button>
     <button
       v-clipboard:copy="sentence"
