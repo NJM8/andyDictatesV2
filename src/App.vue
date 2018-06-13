@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- <vue-speech /> -->
     <vue-speech v-if="recording" @onTranscriptionEnd="onEnd" class="invisible"/>
     <h1 class="title">Andy Dictates V2</h1>
     <br>
