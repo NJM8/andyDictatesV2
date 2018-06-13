@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
     <vue-speech v-if="recording" @onTranscriptionEnd="onEnd" class="invisible"/>
     <h1 class="title">Andy Dictates V2</h1>
     <br>
@@ -7,19 +7,23 @@
     <button @click="recording = false">Stop recording</button>
     <h3 v-if="recording">You are recording</h3>
     <h3 v-else>You are not recording</h3>
-    <form @submit.prevent="addKeyword(newKeyword)">
+    <form @submit.prevent="addKeyword(newKeyword)" class="form-group-inline col-6 offset-3">
       <label for="splitWords">Enter a keyword you would like to separate the input on:</label>
-      <input type="text" v-model="newKeyword">
-      <button type="submit">Submit</button>
+      <div class="input-group">
+        <input type="text" v-model="newKeyword" class="form-control">
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary ml-auto">Submit</button>
+        </div>
+      </div>
     </form>
-    <div v-if="keywords.length > 0">
-      <p>Your Keywords:</p>
-      <ul>
-        <li v-for="(keyword, index) in keywords" :key="index">
-          {{ keyword }}
-          <button @click="removeKeyword(index)">Remove</button>
-        </li>
-      </ul>
+    <div class="col-4 offset-4 mt-2" v-if="keywords.length > 0">
+      <p class="text-center">Your Keywords:</p>
+        <div v-for="(keyword, index) in keywords" :key="index" class="input-group m-2">
+          <input class="form-control" value="keyword" v-model="keywords[index]">
+          <div class="input-group-append">
+            <button class="btn btn-warning" @click="removeKeyword(index)">Remove</button>
+          </div>
+        </div>
     </div>
     <div class="words">
       <text-display
@@ -88,12 +92,11 @@ export default {
 </script>
 
 <style>
-html {
-  font-size: 10px;
-}
-
 body {
-  background:#ffc600;
+  background: #1CD8D2;
+  background: -webkit-linear-gradient(to right, #93EDC7, #1CD8D2);
+  background: linear-gradient(to right, #93EDC7, #1CD8D2);
+
   font-family: 'helvetica neue';
   font-weight: 200;
   font-size: 20px;
@@ -128,7 +131,7 @@ body {
 }
 .title {
   text-align: center;
-  font-size: 3rem;
+  font-size: 4rem;
   font-style: italic;
   margin: 10px 0px 20px 0px;
 }
