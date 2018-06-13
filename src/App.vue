@@ -8,6 +8,20 @@
     <button @click="recording = false">Stop recording</button>
     <h3 v-if="recording">You are recording</h3>
     <h3 v-else>You are not recording</h3>
+    <form @submit.prevent="addKeyword(newKeyword)">
+      <label for="splitWords">Enter a keyword you would like to separate the input on:</label>
+      <input type="text" v-model="newKeyword">
+      <button type="submit">Submit</button>
+    </form>
+    <div v-if="keywords.length > 0">
+      <p>Your Keywords:</p>
+      <ul>
+        <li v-for="(keyword, index) in keywords" :key="index">
+          {{ keyword }}
+          <button @click="removeKeyword(index)">Remove</button>
+        </li>
+      </ul>
+    </div>
     <div class="words">
       <text-display
         class="wordOutput"
@@ -31,14 +45,25 @@ export default {
   },
   data () {
     return {
-      recordedWords: ['hello', 'hi'],
-      recording: false
+      recordedWords: [],
+      keywords: [],
+      newKeyword: '',
+      recording: true,
+      transcriptionIndex: 0
     }
   },
   methods: {
     onEnd ({ lastSentence, transcription }) {
-      console.log(lastSentence)
-      this.recordedWords.push(lastSentence)
+      if (lastSentence.includes(...this.keywords)) {
+        this.keywords.forEach(word => {
+          const index = lastSentence.indexOf(word)
+          this.recordedWords.push(lastSentence.substring(0, index - 1))
+          lastSentence = lastSentence.substring(index, lastSentence.length)
+        })
+        this.recordedWords.push(lastSentence)
+      } else {
+        this.recordedWords.push(lastSentence)
+      }
     },
     join (index) {
       for (let i = 0; i < this.recordedWords.length; i++) {
@@ -51,6 +76,13 @@ export default {
     },
     updateSentence (index, newSentence) {
       this.recordedWords[index] = newSentence
+    },
+    addKeyword (newKeyword) {
+      this.keywords.push(newKeyword)
+      this.newKeyword = ''
+    },
+    removeKeyword (index) {
+      this.keywords.splice(index, 1)
     }
   }
 }
