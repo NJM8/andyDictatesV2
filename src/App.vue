@@ -14,12 +14,12 @@
       @submit.prevent="addKeyword(newKeyword)">
       <h5
         class="text-center">Enter a keyword you would like to separate the input on:</h5>
-      <div class="input-group shadow">
+      <div class="input-group customShadow">
         <input
           v-model="newKeyword"
           type="text"
-          class="form-control shadow">
-        <div class="input-group-append shadow">
+          class="form-control">
+        <div class="input-group-append">
           <button
             type="submit"
             class="btn btn-primary ml-auto">Submit</button>
@@ -33,14 +33,14 @@
       <div
         v-for="(keyword, index) in keywords"
         :key="index"
-        class="input-group m-2">
+        class="input-group m-2 customShadow">
         <input
           v-model="keywords[index]"
-          class="form-control shadow"
+          class="form-control"
           value="keyword">
-        <div class="input-group-append shadow">
+        <div class="input-group-append">
           <button
-            class="btn btn-warning shadow"
+            class="btn btn-warning"
             @click="removeKeyword(index)">Remove</button>
         </div>
       </div>
@@ -152,7 +152,8 @@ body {
   font-style: italic;
   margin: 10px 0px 20px 0px;
 }
-.shadow {
-  box-shadow:10px 10px 0 rgba(0,0,0,0.1);
+.customShadow {
+  border-radius: 4px;
+  box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
 }
 </style>
