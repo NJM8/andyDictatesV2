@@ -51,7 +51,6 @@
         :key="index"
         :sentence="sentence"
         :index="index"
-        class="wordOutput"
         @join="join"
         @sentence-change="updateSentence"/>
     </div>
@@ -73,7 +72,7 @@ export default {
       recordedWords: [],
       keywords: [],
       newKeyword: '',
-      recording: true,
+      recording: false,
       transcriptionIndex: 0
     }
   },
@@ -118,25 +117,21 @@ body {
   background: #1CD8D2;
   background: -webkit-linear-gradient(to right, #93EDC7, #1CD8D2);
   background: linear-gradient(to right, #93EDC7, #1CD8D2);
-
   font-family: 'helvetica neue';
   font-weight: 200;
   font-size: 20px;
 }
 .words {
-  max-width:500px;
-  margin:50px auto;
-  background:white;
-  border-radius:5px;
-  box-shadow:10px 10px 0 rgba(0,0,0,0.1);
-  padding:1rem 2rem 1rem 5rem;
+  max-width: 800px;
+  margin: 50px auto;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
+  padding: 1rem 2rem 1rem 5rem;
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, #fff)) 0 4px;
   background-size: 100% 3rem;
   position: relative;
-  line-height:3rem;
-}
-.wordOutput {
-  margin: 0 0 3rem;
+  line-height: 3rem;
 }
 .words:before {
   content: '';
